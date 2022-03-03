@@ -2,7 +2,12 @@
 {
     public class Ingredient
     {
-        public int Id { get; set; }
+        public int IngredientId { get; set; }
         public string Name { get; set; } = string.Empty;
+
+        
+        public int? FoodId { get; set; } // Foreign key
+        public Food? Food { get; set; } // Reference navigation
+        
     }
 }
