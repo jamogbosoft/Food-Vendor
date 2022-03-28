@@ -1,13 +1,16 @@
 global using BlazorEcom.Shared;
 global using Microsoft.EntityFrameworkCore;
 using BlazorEcom.Server.Data;
+using BlazorEcom.Server.Services.FoodService;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<BlazorEcomDataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 
 builder.Services.AddControllersWithViews();
@@ -15,6 +18,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IFoodService, FoodService>();
 
 var app = builder.Build();
 
