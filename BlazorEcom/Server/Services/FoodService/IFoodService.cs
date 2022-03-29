@@ -3,6 +3,6 @@
     public interface IFoodService
     {
         Task<ServiceResponse<List<Food>>> GetFoodsAsync();
-        Task<ServiceResponse<List<Food>>> GetFoodAsync(int id);
+        Task<ServiceResponse<Food>> GetFoodAsync(int foodId);
     }
 }

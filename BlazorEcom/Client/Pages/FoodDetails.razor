@@ -1,0 +1,42 @@
+﻿@page "/food/{id:int}"
+@inject IFoodService FoodService
+
+@if(food == null)
+{
+    <span><img  src="~/processing.gif" alt="Processing..."/></span>
+    <span>@message</span>
+}
+else
+{
+    <div class="media">
+        <div class="media-img-wrapper mr-2">
+            <img class="media-img" src="@food.ImageUrl" alt="@food.Name">
+        </div>    
+        <div class="media-body">
+            <h2 class="mb-0">@food.Name </h2>
+            <p> <strong>DESCRIPTION: </strong> @food.Description</p>
+            <h4 class="price"><strong>Price: </strong> #@food.Price.ToString("000.00")</h4>
+        </div>
+    </div>  
+}
+
+@code {
+    private Food? food = null;
+    private string message = string.Empty;
+
+    [Parameter]
+    public int Id { get; set; }
+    protected override async Task OnParametersSetAsync()
+    {
+        message = "Loading food...";
+        var result = await FoodService.GetFood(Id);
+        if (!result.Success)
+        {
+            message = result.Message;
+        }
+        else
+        {
+            food = result.Data;
+        }
+    }
+}

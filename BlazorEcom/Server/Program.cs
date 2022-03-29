@@ -2,7 +2,6 @@ global using BlazorEcom.Shared;
 global using Microsoft.EntityFrameworkCore;
 using BlazorEcom.Server.Data;
 using BlazorEcom.Server.Services.FoodService;
-using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 

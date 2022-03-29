@@ -1,18 +1,23 @@
-﻿@inject HttpClient Http
-
+﻿@inject IFoodService FoodService
+@if(FoodService.Foods == null || FoodService.Foods.Count == 0)
+{
+    <span>Loading Foods...</span>
+    <span><img style="width:30px; height:30px;"  src="~/processing.gif" alt="Processing..."/></span>
+}
+else{
 <div class="accordion-body">
     <h3>@Title</h3>
     <ul class="list-unstyled">
-        @foreach (var food in Foods)
+        @foreach (var food in FoodService.Foods)
         {            
             <li class="media my-3">
                 <div class="media-img-wrapper mr-2">
-                    <a href="#">
+                    <a href="/food/@food.FoodId">
                         <img class="media-img" src="@food.ImageUrl" alt="@food.Name">
                     </a>
                 </div>    
                 <div class="media-body">
-                    <a href="#">
+                    <a href="/food/@food.FoodId">
                         <h4 class="mb-0">@food.Name </h4>
                     </a>
                     <h5 class="price"><strong>Price: </strong> #@food.Price.ToString("000.00")</h5>
@@ -35,21 +40,15 @@
         }
     </ul>
 </div>
+}
 
 @code {
     // Demonstrates how a parent component can supply parameters
     [Parameter]
     public string Title { get; set; } = string.Empty;
 
-    private static List<Food> Foods = new List<Food>();
-
     protected override async Task OnInitializedAsync()
     {
-        var result = await Http.GetFromJsonAsync<ServiceResponse<List<Food>>>("api/food");
-        if (result != null && result.Data!=null)
-        {
-            Foods = result.Data;
-        }
-
+        await FoodService.GetFoods();
     }
  }

@@ -14,17 +14,6 @@
     text-align: center;
 }
 
-.media {
-    display: flex;
-    align-items:flex-start;
-}
-.media-body{
-    flex:1;
-}
-.price {
-    color: green;
-    font-size: x-large;
-}
 @media (max-width: 1023.98px){
     .media {
         flex-direction: column;

@@ -29,10 +29,10 @@ namespace BlazorEcom.Server.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<List<Food>>>> GetFood(int id)
+        [HttpGet("{foodId}")]
+        public async Task<ActionResult<ServiceResponse<Food>>> GetFood(int foodId)
         {
-            var result = await _foodService.GetFoodAsync(id);
+            var result = await _foodService.GetFoodAsync(foodId);
 
             if (result == null)
             {
