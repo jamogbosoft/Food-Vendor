@@ -10,14 +10,12 @@
         }
         public List<Food> Foods { get; set; } = new List<Food>();
 
-        [HttpGet("{foodId}")]
         public async Task<ServiceResponse<Food>> GetFood(int foodId)
         {
             var result = await _http.GetFromJsonAsync<ServiceResponse<Food>>($"api/food/{foodId}");
             return result;
         }
 
-        [HttpGet]
         public async Task GetFoods()
         {
             var result = await _http.GetFromJsonAsync<ServiceResponse<List<Food>>>("api/food");
